@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, My Love!</title>
+    <style>
+      /* General Page Styles */
+      body {
+        background-color: #ffdde1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Floating Hearts Animation */
+      .hearts {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .heart {
+        position: absolute;
+        bottom: -10px;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        clip-path: polygon(50% 90%, 100% 38%, 82% 0%, 50% 20%, 18% 0%, 0% 38%);
+        animation: floatUp linear infinite;
+      }
+
+      @keyframes floatUp {
+        from {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-100vh);
+          opacity: 0;
+        }
+      }
+
+      /* Birthday Card */
+      .card-container {
+        perspective: 1000px;
+      }
+
+      .card {
+        width: 300px;
+        height: 400px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 1s;
+        cursor: pointer;
+      }
+
+      .card.open {
+        transform: rotateY(180deg);
+      }
+
+      .front,
+      .inside {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        backface-visibility: hidden;
+      }
+
+      .front {
+        background: #ff4d6d;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .inside {
+        background: #fff;
+        transform: rotateY(180deg);
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .message {
+        font-size: 18px;
+        color: #333;
+      }
+
+      .heart-icon {
+        font-size: 40px;
+        color: red;
+      }
+
+      /* Music Button */
+      .play-music {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #ff4d6d;
+        color: white;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating Hearts -->
+    <div class="hearts"></div>
+
+    <!-- Birthday Card -->
+    <div class="card-container">
+      <div class="card" onclick="openCard()">
+        <div class="front">
+          Love you endlessly <br />
+          Babe! ❤️
+        </div>
+        <div class="inside">
+          <h2>Happy Birthday, My Love! 🎉</h2>
+          <p class="message">
+            You make my world brighter every day. I love you so much! 💖
+          </p>
+          <!-- Button to play the music 
+          
+            <div class="play-music">
+              <audio id="bg-music" src="./Lose Control.mp3"></audio>
+              <button onclick="document.getElementById('bg-music').play()">
+                Play Music 🎶
+              </button>
+            </div> -->
+
+          <audio id="bg-music" src="./Lose Control.mp3"></audio>
+
+          <button
+            class="music-button"
+            onclick="document.getElementById('bg-music').play()"
+          >
+            Play Music 🎶
+          </button>
+          <button
+            class="music-button"
+            onclick="document.getElementById('bg-music').pause()"
+          >
+            Pause Music ⏸️
+          </button>
+
+          <style>
+            .music-button {
+              background-color: #ff4d4d; /* Red color */
+              color: white;
+              border: none;
+              padding: 10px 20px;
+              font-size: 16px;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: background 0.3s;
+              margin-top: 30px;
+            }
+
+            .music-button:hover {
+              background-color: #cc0000; /* Darker red */
+            }
+          </style>
+
+          <script>
+            function stopMusic() {
+              let music = document.getElementById("bg-music");
+              music.pause();
+              music.currentTime = 0; // Reset to start
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openCard() {
+        document.querySelector(".card").classList.toggle("open");
+      }
+
+      // Generate Floating Hearts
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        document.querySelector(".hearts").appendChild(heart);
+
+        // Random positions and animation speed
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+        setTimeout(() => heart.remove(), 5000);
+      }
+
+      setInterval(createHeart, 500);
+    </script>
+  </body>
+</html>
